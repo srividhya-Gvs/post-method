@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<style type="text/css">
+		body{
+			background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400/4d845686128681.5d909dad4ddd3.jpg);
+			background-color: cover;
+			text-align: center;
+			margin-top: 20%;
+		}
+		#name{
+			padding: 0.2%;
+		}
+		#password{
+			margin-top:1%;
+			padding: 0.2%;
+		}
+		#car{
+			margin-top:1%;
+			padding: 0.2%;
+			width:11%;
+		}
+		#submit{
+			margin-top: 1%
+		}
+		#submit:hover{
+			background-color: orange;
+			color: green;
+		}
+	</style>
+	<script type="text/javascript">
+		function data(){
+			var name=document.getElementById("name").value
+			console.log(name)
+			var password=document.getElementById("password").value
+			console.log(password)
+			var car=document.getElementById("car").value
+			console.log(car)
+			var gmale=document.getElementById("male").checked
+			var gfemale=document.getElementById("female").checked             
+			if(gmale==true) var gender="male"
+				else var gender="female"
+              console.log(gender)
+			fetch("http://localhost:3000/newData",{
+			method:"POST",
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify({name:"name",password:password,carName:car,gender:gender})
+		})
+			.then((res)=>{
+				console.log(res)
+				if (res.status===200)
+					alert("Registeration successful")
+			})
+			.catch((err)=>{
+				alert(err)
+			})
+		}
+	</script>
+	<input id="name" placeholder="enter your name" /></br>
+	<input id="password" placeholder="password" /></br>
+	<select id="car">
+		<option value="select a car">select a car</option>
+		<option value="kia">kia</option>
+		<option value="innova">innova</option>
+	</select></br>
+	<p>
+	<input type="radio" name="gender" id="male"/>Male
+    <input type="radio" name="gender" id="female"/>Female</br>
+    </p>		
+  	<button id="submit" onclick="data()">Submit</button>
+</body>
+</html>
